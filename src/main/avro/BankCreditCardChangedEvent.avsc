@@ -1,0 +1,179 @@
+{
+  "namespace": "pags.bank.creditcard.update",
+  "type": "record",
+  "name": "BankCreditCardChangedEvent",
+  "fields": [
+    {
+      "name": "IDT_CARD",
+      "type": "long",
+      "doc": "Id do cartao"
+    },
+    {
+      "name": "IDT_ACCOUNT",
+      "type": "long",
+      "doc": "Id da conta que o cartao está vinculado"
+    },
+    {
+      "name": "COD_PARTNER_CARD",
+      "type": "long",
+      "doc": "codigo do cartao no parceiro (proxy)"
+    },
+    {
+      "name": "DES_CARD_NUMBER",
+      "type": [
+        "null",
+        "string"
+      ],
+      "default": null,
+      "doc": "Bin/Holder do cartao"
+    },
+    {
+      "name": "IND_CARD_STATUS",
+      "type": "string",
+      "doc": "Status atual do cartao"
+    },
+    {
+      "name": "COD_DF_TOKEN",
+      "type": [
+        "null",
+        "string"
+      ],
+      "default": null,
+      "doc": "Token duravel do cartao no sistema data-fortress"
+    },
+    {
+      "name": "COD_DF_CC_HASH",
+      "type": [
+        "null",
+        "string"
+      ],
+      "default": null,
+      "doc": "Hash duravel do cartao no sistema data-fortress"
+    },
+    {
+      "name": "DAT_ACTIVATION",
+      "type": [
+        "null",
+        "string"
+      ],
+      "default": null,
+      "doc": "Data de ativacao do cartao, no formato ISO, no timezone UTC"
+    },
+    {
+      "name": "DAT_CANCELLATION",
+      "type": [
+        "null",
+        "string"
+      ],
+      "default": null,
+      "doc": "Data de cancelamento do cartao, no formato ISO, no timezone UTC"
+    },
+    {
+      "name": "DAT_EXPIRATION",
+      "type": [
+        "null",
+        "string"
+      ],
+      "default": null,
+      "doc": "Data de validade do cartao, no formato ISO"
+    },
+    {
+      "name": "IND_ISSUER",
+      "type": "string",
+      "doc": "Bandeira do cartao"
+    },
+    {
+      "name": "NAM_CARD_HOLDER",
+      "type": [
+        "null",
+        "string"
+      ],
+      "default": null,
+      "doc": "Nome impresso no cartao"
+    },
+    {
+      "name": "IND_PARTNER",
+      "type": [
+        "null",
+        "string"
+      ],
+      "default": null,
+      "doc": "Processador do cartao"
+    },
+    {
+      "name": "IND_CARD_TYPE",
+      "type": "string",
+      "doc": "Indica se o cartao e fisico ou virtual"
+    },
+    {
+      "name": "DAT_CREATION",
+      "type": "string",
+      "doc": "Data de criação do cartao"
+    },
+    {
+      "name": "DAT_UPDATE",
+      "type": [
+        "null",
+        "string"
+      ],
+      "default": null,
+      "doc": "Data de insercao do cartao no backoffice"
+    },
+    {
+      "name": "IDT_SAFEPAY_USER",
+      "type": "long",
+      "doc": "codigo da pessoa no pagseguro-core"
+    },
+    {
+      "name": "IDT_PERSON",
+      "type": "long",
+      "doc": "codigo da pessoa no uol"
+    },
+    {
+      "name": "COD_PARTNER_ACCOUNT",
+      "type": "long",
+      "doc": "codigo da conta no parceiro"
+    },
+    {
+      "name": "COD_PARTNER_PERSON",
+      "type": [
+        "null",
+        "long"
+      ],
+      "default": null,
+      "doc": "codigo da pessoa no parceiro"
+    },
+    {
+      "name": "COD_CUSTOMER",
+      "type": "string",
+      "doc": "id do usuario no sistema customer"
+    },
+    {
+      "name": "DAT_CANCEL_OCCURRENCE",
+      "type": [
+        "null",
+        "string"
+      ],
+      "default": null,
+      "doc": "Data de ocorrencia do cancelamento"
+    },
+    {
+      "name": "IND_CANCEL_LOCAL",
+      "type": [
+        "null",
+        "string"
+      ],
+      "default": null,
+      "doc": "Local de ocorrencia do cancelamento"
+    },
+    {
+      "name": "IND_CANCEL_REASON",
+      "type": [
+        "null",
+        "string"
+      ],
+      "default": null,
+      "doc": "Motivo do cancelamento"
+    }
+  ]
+}

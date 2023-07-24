@@ -1,0 +1,32 @@
+{
+  "namespace": "br.com.pagseguro.interactivecampaing.acceptCampaign",
+  "type": "record",
+  "name": "InteractiveCampaignUserAcceptCampaign",
+  "fields": [
+    {
+      "name": "IDT_INTERACTIVE_CAMPAIGN",
+      "type": "long",
+      "doc": "[PK] - Identificador da campanha interativa."
+    },
+    {
+      "name": "COD_CUSTOMER",
+      "type": "string",
+      "doc": "Id do cliente. Tem que ser o COD_CUSTOMER. Por exemplo CUSTOMER:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX."
+    },
+    {
+      "name": "DAT_ACCEPT_CAMPAIGN",
+      "type": "string",
+      "doc": "Data e hora do aceite da campanha. Formato ISO Datetime (por exemplo, 2000-10-31T01:30:00.000)."
+    },
+    {
+      "name": "DES_USER_TAG",
+      "type": "string",
+      "doc": "Tag que informa o status do usuario com a campanha a qual ele esta relacionado. Tamanho maximo (30)."
+    },
+    {
+      "name": "NAM_PRODUCT",
+      "type": "string",
+      "doc": "Informa a qual produto a campanha esta relacionada. Tamanho maximo (50)."
+    }
+  ]
+}

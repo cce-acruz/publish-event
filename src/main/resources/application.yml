@@ -1,0 +1,84 @@
+server.port: 8089
+
+spring:
+  jackson:
+    default-property-inclusion: non_null
+    serialization.write-dates-as-timestamps: false
+    deserialization.fail-on-unknown-properties: true
+  cloud:
+    stream:
+      default:
+        producer:
+          use-native-encoding: true
+        consumer:
+          use-native-encoding:
+      default-binder: 'kafkaJson'
+      binders:
+        kafka.type: 'kafka'
+        kafkaJson:
+          type: 'kafka'
+          defaultCandidate: true
+          environment:
+            spring:
+              kafka:
+                consumer:
+                  key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+                  value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+                producer:
+                  client.id: '${spring.application.name}'
+                  key-serializer: org.apache.kafka.common.serialization.StringSerializer
+                  value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+        kafkaAvro:
+          type: 'kafka'
+          environment:
+            spring:
+              kafka:
+                properties:
+                  schema.registry.url: http://localhost:8081
+                  specific.avro.reader: true
+                consumer:
+                  key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+                  value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+                producer:
+                  client.id: '${spring.application.name}'
+                  key-serializer: org.apache.kafka.common.serialization.StringSerializer
+                  value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+      bindings:
+        multiple-card-authorizer-transactions-out-0:
+          destination: 'cmd.dsr.bank.cards.multiplecard.transactions'
+          content-type: 'application/json'
+        conciliation-requested-out-0:
+          destination: 'sys.dsr.bank.cards.multiplecard.transaction-conciliation-request-created'
+          content-type: 'application/json'
+        transaction-conciliation-request-created-stream-out-0:
+          destination: 'sys.dsr.bank.cards.multiplecard.transaction-conciliation-request-created'
+          content-type: 'application/json'
+        order-updated-stream-out-0:
+          destination: 'fct.dsr.bank.cards.multiplecard.order-updated'
+          content-type: 'application/json'
+        interactive-campaign-user-accept-campaign-out-0:
+          binder: kafkaAvro
+          destination: 'cmd.dsr.customer.communication.user-accept-interactive-campaign'
+          content-type: 'application/*+avro'
+          producer:
+            useNativeEncoding: true
+        bank-credit-card-changed-out-0:
+          binder: kafkaAvro
+          destination: 'fct.dsr.bank.cards.creditcard.changed.avro'
+          content-type: 'application/*+avro'
+          producer:
+            useNativeEncoding: true
+      kafka:
+        binder:
+          brokers: 'localhost:29092'
+          health-timeout: 10
+          auto-add-partitions: true
+          consumer-properties:
+            key.deserializer: 'org.apache.kafka.common.serialization.StringDeserializer'
+            value.deserializer: 'io.confluent.kafka.serializers.KafkaAvroDeserializer'
+            schema.registry.url: 'http://localhost:8081'
+            specific.avro.reader: true
+          producer-properties:
+            key.serializer: org.apache.kafka.common.serialization.StringSerializer
+            value.serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+            schema.registry.url: http://localhost:8081

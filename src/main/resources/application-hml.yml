@@ -1,0 +1,61 @@
+server.port: 9091
+
+spring:
+  jackson:
+    default-property-inclusion: non_null
+    serialization.write-dates-as-timestamps: false
+    deserialization.fail-on-unknown-properties: true
+  cloud:
+    stream:
+      binders:
+        kafkaAvro:
+          type: 'kafka'
+          environment:
+            spring:
+              kafka:
+                properties:
+                  schema.registry.url: http://schema-registry.qa-aws.intranet.pagseguro.uol:8081
+                  specific.avro.reader: true
+                consumer:
+                  key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+                  value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+                producer:
+                  client.id: '${spring.application.name}'
+                  key-serializer: org.apache.kafka.common.serialization.StringSerializer
+                  value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+      bindings:
+        multiple-card-authorizer-transactions-out-0:
+          destination: 'cmd.dsr.bank.cards.multiplecard.transactions'
+          content-type: 'application/json'
+        interactive-campaign-user-accept-campaign-out-0:
+          binder: kafkaAvro
+          destination: 'cmd.dsr.customer.communication.user-accept-interactive-campaign'
+          content-type: 'application/*+avro'
+          producer:
+            useNativeEncoding: true
+      kafka:
+        binder:
+          brokers:
+            - broker1.qa.pagseguro.intranet:9093
+            - broker2.qa.pagseguro.intranet:9093
+            - broker3.qa.pagseguro.intranet:9093
+            - broker4.qa.pagseguro.intranet:9093
+            - broker5.qa.pagseguro.intranet:9093
+            - broker6.qa.pagseguro.intranet:9093
+          configuration:
+            security.protocol: SSL
+            ssl.truststore.location: /home/cce_acruz/certificados/kafka/broker-clients.qa.pagseguro.intranet.truststore.p12
+            ssl.truststore.password: 'p@ssw0rdBrokerQaClientsPags'
+            ssl.keystore.location: /home/cce_acruz/certificados/kafka/broker-clients.qa.pagseguro.intranet.keystore.p12
+            ssl.keystore.password: 'p@ssw0rdBrokerQaClientsPags'
+            ssl.key.password: 'p@ssw0rdBrokerQaClientsPags'
+            ssl.keymanager.algorithm: PKIX
+            ssl.trustmanager.algorithm: PKIX
+            ssl.keystore.type: pkcs12
+            ssl.truststore.type: pkcs12
+            ssl.enabled.protocols: TLSv1.2
+            auto-create-topics: true
+          producer-properties:
+            key.serializer: org.apache.kafka.common.serialization.StringSerializer
+            value.serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+            schema.registry.url: http://schema-registry.qa-aws.intranet.pagseguro.uol:8081
