@@ -8,6 +8,19 @@ spring:
   cloud:
     stream:
       binders:
+        kafkaJson:
+          type: 'kafka'
+          defaultCandidate: true
+          environment:
+            spring:
+              kafka:
+                consumer:
+                  key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+                  value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+                producer:
+                  client.id: '${spring.application.name}'
+                  key-serializer: org.apache.kafka.common.serialization.StringSerializer
+                  value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
         kafkaAvro:
           type: 'kafka'
           environment:
@@ -44,18 +57,13 @@ spring:
             - broker6.qa.pagseguro.intranet:9093
           configuration:
             security.protocol: SSL
-            ssl.truststore.location: /home/cce_acruz/certificados/kafka/broker-clients.qa.pagseguro.intranet.truststore.p12
-            ssl.truststore.password: 'p@ssw0rdBrokerQaClientsPags'
-            ssl.keystore.location: /home/cce_acruz/certificados/kafka/broker-clients.qa.pagseguro.intranet.keystore.p12
-            ssl.keystore.password: 'p@ssw0rdBrokerQaClientsPags'
-            ssl.key.password: 'p@ssw0rdBrokerQaClientsPags'
+            ssl.truststore.location: ${broker-certificate.local.truststore}
+            ssl.truststore.password: ${broker-certificate.password.truststore}
+            ssl.keystore.location: ${broker-certificate.local.keystore}
+            ssl.keystore.password: ${broker-certificate.password.keystore}
             ssl.keymanager.algorithm: PKIX
             ssl.trustmanager.algorithm: PKIX
             ssl.keystore.type: pkcs12
             ssl.truststore.type: pkcs12
             ssl.enabled.protocols: TLSv1.2
             auto-create-topics: true
-          producer-properties:
-            key.serializer: org.apache.kafka.common.serialization.StringSerializer
-            value.serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
-            schema.registry.url: http://schema-registry.qa-aws.intranet.pagseguro.uol:8081

@@ -68,17 +68,19 @@ spring:
           content-type: 'application/*+avro'
           producer:
             useNativeEncoding: true
+        emission-card-card-changed-out-0:
+          binder: kafkaAvro
+          destination: 'fct.dsr.issuer.card.emission-card-changed'
+          content-type: 'application/*+avro'
+          producer:
+            useNativeEncoding: true
+        user-notification-out-0:
+          binder: kafkaJson
+          destination: fct.dsr.bank.cards.creditcard.customer-notification
+          content-type: 'application/json'
       kafka:
         binder:
           brokers: 'localhost:29092'
           health-timeout: 10
           auto-add-partitions: true
-          consumer-properties:
-            key.deserializer: 'org.apache.kafka.common.serialization.StringDeserializer'
-            value.deserializer: 'io.confluent.kafka.serializers.KafkaAvroDeserializer'
-            schema.registry.url: 'http://localhost:8081'
-            specific.avro.reader: true
-          producer-properties:
-            key.serializer: org.apache.kafka.common.serialization.StringSerializer
-            value.serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
-            schema.registry.url: http://localhost:8081
+

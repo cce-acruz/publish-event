@@ -1,8 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import org.jetbrains.kotlin.kapt3.base.Kapt.kapt
 
 plugins {
-	val kotlinVersion = "1.7.21"
+	val kotlinVersion = "1.9.0"
 	id("org.springframework.boot") version "2.7.5"
 	id("io.spring.dependency-management") version "1.0.15.RELEASE"
 	kotlin("jvm") version kotlinVersion
@@ -17,9 +16,8 @@ java.sourceCompatibility = JavaVersion.VERSION_17
 
 repositories {
 	mavenCentral()
-	maven {
-		url = uri("https://repo.intranet.pags/artifactory/gradle-all")
-	}
+	maven(url = "https://repo.intranet.pags/artifactory/gradle-all")
+	maven(url = "https://repo.intranet.pags/artifactory/issuer-maven/")
 }
 
 extra["springCloudVersion"] = "2021.0.5"
@@ -28,6 +26,9 @@ val mapStructVersion = "1.5.3.Final"
 val openAPISwagger = "1.6.12"
 val avroVersion = "1.11.1"
 val kafkaAvroSerializerVersion = "6.1.1"
+val emissionEventsVersion = "0.44.1"
+val javaFakerVersion = "2.0.2"
+val issuerSupportingNotificationEventsVersion = "1.0.2"
 
 dependencies {
 	implementation("org.springdoc:springdoc-openapi-ui:$openAPISwagger")
@@ -39,13 +40,14 @@ dependencies {
 	implementation("multiple-card:multiple-card-events:$multipleCardEventsVersion")
 	implementation("org.mapstruct:mapstruct:$mapStructVersion")
 	implementation("org.springframework.cloud:spring-cloud-stream-binder-kafka:3.2.6")
-	implementation("org.springframework.cloud:spring-cloud-starter-stream-kafka:3.2.6")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.apache.avro:avro:$avroVersion")
 	implementation("io.confluent:kafka-avro-serializer:$kafkaAvroSerializerVersion")
 	implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.14.1")
-
+	implementation("emission:emission-events:$emissionEventsVersion")
+	implementation("net.datafaker:datafaker:$javaFakerVersion")
 	implementation("io.github.microutils:kotlin-logging-jvm:3.0.4")
+	implementation("issuer:issuer-supporting-notification-events:$issuerSupportingNotificationEventsVersion")
 
 	annotationProcessor("org.mapstruct:mapstruct-processor:$mapStructVersion")
 

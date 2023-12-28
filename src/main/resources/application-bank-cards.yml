@@ -1,0 +1,7 @@
+broker-certificate:
+  password:
+    truststore: '1pMf29CY]PfO'
+    keystore: '1pMf29CY]PfO'
+  local:
+    truststore: /home/cce_acruz/certificados/kafka/new/bank-cards-multiple.qa.pagseguro.intranet.truststore.p12
+    keystore: /home/cce_acruz/certificados/kafka/new/bank-cards-multiple.qa.pagseguro.intranet.keystore.p12
