@@ -26,7 +26,7 @@ val mapStructVersion = "1.5.3.Final"
 val openAPISwagger = "1.6.12"
 val avroVersion = "1.11.1"
 val kafkaAvroSerializerVersion = "6.1.1"
-val emissionEventsVersion = "0.44.1"
+val emissionEventsVersion = "0.58.0"
 val javaFakerVersion = "2.0.2"
 val issuerSupportingNotificationEventsVersion = "1.0.2"
 

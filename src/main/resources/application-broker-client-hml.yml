@@ -1,0 +1,7 @@
+broker-certificate:
+  password:
+    truststore: 'p@ssw0rdBrokerQaClientsPags'
+    keystore: 'p@ssw0rdBrokerQaClientsPags'
+  local:
+    truststore: /home/cce_acruz/certificados/kafka/broker-clients.qa.pagseguro.intranet.truststore.p12
+    keystore: /home/cce_acruz/certificados/kafka/broker-clients.qa.pagseguro.intranet.keystore.p12

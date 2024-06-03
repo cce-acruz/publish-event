@@ -21,4 +21,10 @@ class EmissionCardController(
     fun publishCardChanged(@RequestBody issuerCardStatusChangeRequest: IssuerCardStatusChangeRequest) {
         publishEmissionCardService.publishCardChangedEvent(issuerCardStatusChangeRequest)
     }
+
+    @PostMapping("/digital-virtual-card-created")
+    @ResponseStatus(HttpStatus.OK)
+    fun digitalVirtualCardCreated() {
+        publishEmissionCardService.digitalVirtualCardCreated()
+    }
 }

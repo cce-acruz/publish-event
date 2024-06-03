@@ -1,4 +1,4 @@
-server.port: 8089
+server.port: 9091
 
 spring:
   jackson:
@@ -7,14 +7,7 @@ spring:
     deserialization.fail-on-unknown-properties: true
   cloud:
     stream:
-      default:
-        producer:
-          use-native-encoding: true
-        consumer:
-          use-native-encoding:
-      default-binder: 'kafkaJson'
       binders:
-        kafka.type: 'kafka'
         kafkaJson:
           type: 'kafka'
           defaultCandidate: true
@@ -34,7 +27,7 @@ spring:
             spring:
               kafka:
                 properties:
-                  schema.registry.url: http://localhost:8081
+                  schema.registry.url: http://k-tools.stg.pagseguro.intranet:8081
                   specific.avro.reader: true
                 consumer:
                   key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
@@ -47,43 +40,25 @@ spring:
         multiple-card-authorizer-transactions-out-0:
           destination: 'cmd.dsr.bank.cards.multiplecard.transactions'
           content-type: 'application/json'
-        conciliation-requested-out-0:
-          destination: 'sys.dsr.bank.cards.multiplecard.transaction-conciliation-request-created'
-          content-type: 'application/json'
-        transaction-conciliation-request-created-stream-out-0:
-          destination: 'sys.dsr.bank.cards.multiplecard.transaction-conciliation-request-created'
-          content-type: 'application/json'
-        order-updated-stream-out-0:
-          destination: 'fct.dsr.bank.cards.multiplecard.order-updated'
-          content-type: 'application/json'
         interactive-campaign-user-accept-campaign-out-0:
           binder: kafkaAvro
           destination: 'cmd.dsr.customer.communication.user-accept-interactive-campaign'
           content-type: 'application/*+avro'
           producer:
             useNativeEncoding: true
-        bank-credit-card-changed-out-0:
-          binder: kafkaAvro
-          destination: 'fct.dsr.bank.cards.creditcard.changed.avro'
-          content-type: 'application/*+avro'
-          producer:
-            useNativeEncoding: true
-        emission-card-card-changed-out-0:
-          binder: kafkaAvro
-          destination: 'fct.dsr.issuer.card.emission-card-changed'
-          content-type: 'application/*+avro'
-          producer:
-            useNativeEncoding: true
-        user-notification-out-0:
-          binder: kafkaJson
-          destination: fct.dsr.bank.cards.creditcard.customer-notification
-          content-type: 'application/json'
-        digital-virtual-card-changed-out-0:
-          binder: kafkaAvro
-          destination: fct.dsr.issuer.digital.virtual-card-changed
-          content-type: 'application/*+avro'
       kafka:
         binder:
-          brokers: 'localhost:29092'
-          health-timeout: 10
-          auto-add-partitions: true
+          brokers: broker1-aws2.stg.pagseguro.intranet:9093, broker2-aws2.stg.pagseguro.intranet:9093,
+            broker3-aws2.stg.pagseguro.intranet:9093
+          configuration:
+            security.protocol: SSL
+            ssl.truststore.location: ${broker-certificate.local.truststore}
+            ssl.truststore.password: ${broker-certificate.password.truststore}
+            ssl.keystore.location: ${broker-certificate.local.keystore}
+            ssl.keystore.password: ${broker-certificate.password.keystore}
+            ssl.keymanager.algorithm: PKIX
+            ssl.trustmanager.algorithm: PKIX
+            ssl.keystore.type: pkcs12
+            ssl.truststore.type: pkcs12
+            ssl.enabled.protocols: TLSv1.2
+            auto-create-topics: true

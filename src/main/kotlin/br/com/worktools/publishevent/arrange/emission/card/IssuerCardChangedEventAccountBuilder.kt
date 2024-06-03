@@ -1,10 +1,9 @@
 package br.com.pagseguro.emission.card.app.adapter.builder
 
 import br.com.pagseguro.emission.card.core.domain.enum.AccountStatusEnum
-import br.com.pagseguro.emission.events.avro.emission.card.IssuerCardChangedEventAccount
-import br.com.worktools.publishevent.arrange.emission.card.codCustomer
 import net.datafaker.Faker
 import java.time.Instant
+import br.com.pagseguro.emission.events.avro.emission.issuer.card.IssuerCardChangedEventAccount
 
 fun buildRandomIssuerCardChangedEventAccount(): IssuerCardChangedEventAccount =
     IssuerCardChangedEventAccount.newBuilder()

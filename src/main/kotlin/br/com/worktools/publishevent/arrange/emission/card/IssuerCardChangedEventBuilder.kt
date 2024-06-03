@@ -1,6 +1,6 @@
 package br.com.pagseguro.emission.card.app.adapter.builder
 
-import br.com.pagseguro.emission.events.avro.emission.card.IssuerCardChangedEvent
+import br.com.pagseguro.emission.events.avro.emission.issuer.card.IssuerCardChangedEvent
 import java.util.UUID
 
 fun buildRandomEmissionCardChangedEvent(): IssuerCardChangedEvent =

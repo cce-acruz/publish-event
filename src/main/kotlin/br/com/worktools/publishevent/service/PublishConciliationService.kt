@@ -11,6 +11,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule
 import mu.KLogger
 import mu.KotlinLogging
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.cloud.stream.function.StreamBridge
 import org.springframework.messaging.support.MessageBuilder
 import org.springframework.stereotype.Service
@@ -24,6 +25,9 @@ class PublishConciliationService(
 ) {
 
     private val log: KLogger = KotlinLogging.logger {}
+
+    @Autowired
+    protected lateinit var objectMapper: ObjectMapper
 
     fun conciliationRequested(transactionConciliationId: Long) {
         val event = TransactionConciliationRequestCreatedEvent(
@@ -45,7 +49,7 @@ class PublishConciliationService(
             .addModule(JavaTimeModule())
             .build()
         val eventJson = mapper.writeValueAsString(event)
-        val message = MessageBuilder.withPayload(event).build()
+        val message = MessageBuilder.withPayload(eventJson).build()
         log.info("Sending message {}", message)
         streamBridge.send("conciliation-requested-out-0", message)
     }
